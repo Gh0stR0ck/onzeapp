@@ -79,7 +79,7 @@ $("#updateroomform").submit(function(e){
 
     $.ajax({
       method: "PUT",
-      url: "/api/room/",
+      url: "/api/room/" + $("input[name=getroomnumber]").val() + "/",
       contentType: "application/json",
       data: JSON.stringify( json),
       success: function( result ) {
@@ -88,6 +88,7 @@ $("#updateroomform").submit(function(e){
     });
 
 });
+
 
 
 function PrintResult(result){
