@@ -25,7 +25,6 @@ public class GuestController {
         return repository.findAll();
     }
 
-
     @RequestMapping(value = "/{guestNumber}/", method = RequestMethod.GET)
     public Guest Get(@PathVariable long roomNumber){
         return repository.findOne(roomNumber);
