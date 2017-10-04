@@ -16,10 +16,6 @@ public class RoomController {
     @Autowired
     private RoomRepository repository;
 
-    public RoomController(){
-
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Iterable<Room> Post(@RequestBody Room room){
         repository.save(room);
