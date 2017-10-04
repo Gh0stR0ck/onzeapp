@@ -1,6 +1,8 @@
 package com.capgemini.controller;
 
 import com.capgemini.model.Room;
+import com.capgemini.repositories.RoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,50 +11,41 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/room")
 public class RoomController {
-    private List<Room> Roomlist = new ArrayList<Room>();
+    private List<Room> Roomlist = new ArrayList<>();
+
+    @Autowired
+    private RoomRepository repository;
+
+    public RoomController(){
+
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public List<Room> Post(@RequestBody Room room){
-        this.Roomlist.add(room);
-        return this.Roomlist;
+    public Iterable<Room> Post(@RequestBody Room room){
+        repository.save(room);
+        return repository.findAll();
     }
 
     @RequestMapping(value = "/{roomNumber}/", method = RequestMethod.PUT)
-    public List<Room> Put(@RequestBody Room room, @PathVariable int roomNumber){
-
-        for(Room tmproom : this.Roomlist){
-            if(tmproom.getNumber() == roomNumber){
-                tmproom.setName(room.getName());
-                tmproom.setCapacity(room.getCapacity());
-                break;
-            };
-        }
-
-        return this.Roomlist;
+    public Iterable<Room> Put(@RequestBody Room room, @PathVariable long roomNumber){
+        repository.save(room);
+        return repository.findAll();
     }
 
 
     @RequestMapping(value = "/{roomNumber}/", method = RequestMethod.GET)
-    public Room Get(@PathVariable int roomNumber){ ;
-        for(Room tmproom : this.Roomlist){
-            if(tmproom.getNumber() == roomNumber) return tmproom;
-        }
-        return new Room();
+    public Room Get(@PathVariable long roomNumber){
+        return repository.findOne(roomNumber);
     }
 
     @RequestMapping(value = "/{roomNumber}/", method = RequestMethod.DELETE)
-    public List<Room> Delete(@PathVariable int roomNumber){ ;
-        for(Room tmproom : this.Roomlist){
-            if(tmproom.getNumber() == roomNumber) {
-                this.Roomlist.remove(tmproom);
-                break;
-            }
-        }
-        return this.Roomlist;
+    public Iterable<Room> Delete(@PathVariable long roomNumber){
+        repository.delete(roomNumber);
+        return repository.findAll();
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Room> GetAll(){
-        return this.Roomlist;
+    public Iterable<Room> GetAll(){
+        return repository.findAll();
     }
 }

@@ -1,9 +1,26 @@
 package com.capgemini.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Room {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long number;
     private String name;
-    private int number;
     private int capacity;
+
+    public Room(){}
+
+    public Room(long number, String name, int capacity){
+        this.number = number;
+        this.name = name;
+        this.capacity = capacity;
+    }
 
     public String getName() {
         return name;
@@ -13,7 +30,7 @@ public class Room {
         this.name = name;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
@@ -21,11 +38,14 @@ public class Room {
         this.number = number;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
+    public int getCapacity() { return capacity; }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Room[number='%d',  name='%s', capacity='%d']", number, name, capacity);
     }
 }
