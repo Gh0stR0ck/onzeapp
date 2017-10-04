@@ -5,13 +5,9 @@ import com.capgemini.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/room")
 public class RoomController {
-    private List<Room> Roomlist = new ArrayList<>();
 
     @Autowired
     private RoomRepository repository;
@@ -35,9 +31,9 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{roomNumber}/", method = RequestMethod.DELETE)
-    public Iterable<Room> Delete(@PathVariable long roomNumber){
+    public Boolean Delete(@PathVariable long roomNumber){
         repository.delete(roomNumber);
-        return repository.findAll();
+        return true;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

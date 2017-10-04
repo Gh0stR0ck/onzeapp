@@ -4,48 +4,81 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Room {
 
+    public enum RoomType {
+        BUDGET,
+        EXCLUSIVE
+    }
+
+    public enum RoomSize {
+        TWOPERSONS,
+        FOURPERSONS
+    }
+
+    public enum RoomStatus {
+        AVAILABLE,
+        BLOCKED
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long number;
-    private String name;
-    private int capacity;
+    private long roomNumber;
+    private RoomType roomType;
+    private RoomSize roomSize;
+    private LocalDateTime dateAvailable;
+    private RoomStatus roomStatus;
 
     public Room(){}
 
-    public Room(long number, String name, int capacity){
-        this.number = number;
-        this.name = name;
-        this.capacity = capacity;
+    public Room(long roomNumber, RoomType roomType, RoomSize roomSize, LocalDateTime dateAvailable, RoomStatus roomStatus){
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.roomSize = roomSize;
+        this.dateAvailable = dateAvailable;
+        this.roomStatus = roomStatus;
     }
 
-    public String getName() {
-        return name;
+    public long getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomNumber(long roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public long getNumber() {
-        return number;
+    public RoomType getRoomType() {
+        return roomType;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 
-    public int getCapacity() { return capacity; }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public RoomSize getRoomSize() {
+        return roomSize;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Room[number='%d',  name='%s', capacity='%d']", number, name, capacity);
+    public void setRoomSize(RoomSize roomSize) {
+        this.roomSize = roomSize;
+    }
+
+    public LocalDateTime getDateAvailable() {
+        return dateAvailable;
+    }
+
+    public void setDateAvailable(LocalDateTime dateAvailable) {
+        this.dateAvailable = dateAvailable;
+    }
+
+    public RoomStatus getRoomStatus() {
+        return roomStatus;
+    }
+
+    public void setRoomStatus(RoomStatus roomStatus) {
+        this.roomStatus = roomStatus;
     }
 }
